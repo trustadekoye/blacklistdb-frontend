@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { Shield, Users, Eye, Lock, Globe, FileSearch } from "lucide-react";
+import { Shield, Users, Lock, Globe } from "lucide-react";
 import CommunityImage from "../assets/images/community.jpg";
 import JourneyImage from "../assets/images/journey.jpg";
 

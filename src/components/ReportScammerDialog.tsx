@@ -7,7 +7,6 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "./ui/dialog";
 import { Button } from "./ui/button";
 import { toast } from "sonner";
@@ -31,9 +30,8 @@ interface ReportScammerDialogProps {
 const ReportScammerDialog: React.FC<ReportScammerDialogProps> = ({
   isOpen,
   onOpenChange,
-}): JSX.Element => {
+}) => {
   const { createReport, banks, loading } = useScamReports();
-  const [open, setOpen] = useState(false);
   const [formData, setFormData] = useState({
     reporters_name: "",
     reporters_email: "",

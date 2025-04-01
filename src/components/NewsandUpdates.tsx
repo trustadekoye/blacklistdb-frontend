@@ -1,7 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, Calendar } from "lucide-react";
-import { Button } from "./ui/button";
 import Blog1 from "../assets/images/image-one.png";
 import Blog2 from "../assets/images/image-two.png";
 import Blog3 from "../assets/images/image-three.png";
