@@ -64,7 +64,7 @@ const ScammerListPage: React.FC = () => {
                 <TableHead>Scammer Name</TableHead>
                 <TableHead>Business Name</TableHead>
                 <TableHead>Account Number</TableHead>
-                <TableHead>Date Reported</TableHead>
+                <TableHead>Date Occured</TableHead>
                 <TableHead>Action</TableHead>
               </TableRow>
             </TableHeader>

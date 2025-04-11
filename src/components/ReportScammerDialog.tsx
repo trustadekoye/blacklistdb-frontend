@@ -36,6 +36,7 @@ const ReportScammerDialog: React.FC<ReportScammerDialogProps> = ({
     reporters_email: "",
     reporters_phone: "",
     scammers_name: "",
+    business_name: "",
     scammers_account: "",
     scammers_bank: "",
     scammers_phone: "",
@@ -96,6 +97,7 @@ const ReportScammerDialog: React.FC<ReportScammerDialogProps> = ({
         reporters_email: "",
         reporters_phone: "",
         scammers_name: "",
+        business_name: "",
         scammers_account: "",
         scammers_bank: "",
         scammers_phone: "",
@@ -192,6 +194,7 @@ const ReportScammerDialog: React.FC<ReportScammerDialogProps> = ({
             </div>
           </div>
 
+          {/* Account number & phone number */}
           <div className="grid grid-cols-2 gap-4">
             <div className="grid gap-2">
               <Label htmlFor="scammers_account">Scammer's Account Number</Label>
@@ -240,16 +243,28 @@ const ReportScammerDialog: React.FC<ReportScammerDialogProps> = ({
           </div>
 
           {/* Additional Details */}
-          <div className="grid gap-2">
-            <Label htmlFor="date_occurred">Date it Happened</Label>
-            <Input
-              id="date_occurred"
-              name="date_occurred"
-              type="date"
-              value={formData.date_occurred}
-              onChange={handleInputChange}
-              required
-            />
+          <div className="grid grid-cols-2 gap-4">
+            <div className="grid gap-2">
+              <Label htmlFor="date_occurred">Date it Happened</Label>
+              <Input
+                id="date_occurred"
+                name="date_occurred"
+                type="date"
+                value={formData.date_occurred}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="business_name">Scammer's Business Name</Label>
+              <Input
+                id="business_name"
+                name="business_name"
+                value={formData.business_name}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
           </div>
 
           <div className="grid gap-2">
