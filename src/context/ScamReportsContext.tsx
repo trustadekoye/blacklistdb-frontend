@@ -59,7 +59,6 @@ export const ScamReportsProvider: React.FC<{ children: React.ReactNode }> = ({
       setReports(response.data);
     } catch (err) {
       setError("Failed to fetch scam reports");
-      console.error(err);
     } finally {
       setLoading(false);
     }
@@ -70,10 +69,8 @@ export const ScamReportsProvider: React.FC<{ children: React.ReactNode }> = ({
     try {
       const response = await apiClient.get(API_CONFIG.ENDPOINTS.BANKS);
       setBanks(response.data);
-      console.log(response.data);
     } catch (err) {
       setError("Failed to fetch banks");
-      console.error(err);
     } finally {
       setLoading(false);
     }

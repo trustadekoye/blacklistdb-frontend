@@ -9,7 +9,6 @@ import {
   DialogTitle,
 } from "./ui/dialog";
 import { Button } from "./ui/button";
-import { toast } from "sonner";
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";
 import {
@@ -88,11 +87,9 @@ const ReportScammerDialog: React.FC<ReportScammerDialogProps> = ({
 
     try {
       await createReport(formDataToSubmit);
-      toast.success("Report submitted successfully!", {
-        description:
-          "We've received your report and will review it as soon as possible.",
-      });
-
+      alert(
+        "We've received your report and will review it as soon as possible."
+      );
       // Reset form and close dialog
       setFormData({
         reporters_name: "",
@@ -111,10 +108,9 @@ const ReportScammerDialog: React.FC<ReportScammerDialogProps> = ({
       setOtherDocuments(null);
       onOpenChange(false);
     } catch (error) {
-      toast.error("Error", {
-        description:
-          "Something went wrong while submitting your report. Please try again later.",
-      });
+      alert(
+        "Something went wrong while submitting your report. Please try again later."
+      );
     }
   };
   return (
