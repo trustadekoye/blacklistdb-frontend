@@ -15,7 +15,7 @@ import { Button } from "./ui/button";
 import ScammersDetailsDialog from "./ScammersDetailsDialog";
 
 const ScammerListPage: React.FC = () => {
-  const { reports, loading, error } = useScamReports();
+  const { reports = [], loading, error } = useScamReports();
   const [selectedScammer, setSelectedScammer] = useState<string | null>(null);
   const [isDetailsDialogOpen, setIsDetailsDialogOpen] = useState(false);
 
@@ -56,13 +56,7 @@ const ScammerListPage: React.FC = () => {
         </h1>
       </motion.div>
 
-      {reports.length === 0 ? (
-        <div className="text-center p-8 bg-gray-50 rounded-lg">
-          <p className="text-lg text-gray-600 font-regular">
-            No scammers have been reported yet.
-          </p>
-        </div>
-      ) : (
+      {Array.isArray(reports) && reports.length > 0 ? (
         <div className="overflow-x-auto rounded-lg border shadow">
           <Table>
             <TableHeader>
@@ -102,6 +96,12 @@ const ScammerListPage: React.FC = () => {
               ))}
             </TableBody>
           </Table>
+        </div>
+      ) : (
+        <div className="text-center p-8 bg-gray-50 rounded-lg">
+          <p className="text-lg text-gray-600 font-regular">
+            No scammers have been reported yet
+          </p>
         </div>
       )}
 

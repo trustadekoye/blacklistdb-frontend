@@ -182,11 +182,15 @@ const ReportScammerDialog: React.FC<ReportScammerDialogProps> = ({
                   <SelectValue placeholder="Select bank" />
                 </SelectTrigger>
                 <SelectContent>
-                  {banks.map((bank) => (
-                    <SelectItem key={bank.code} value={bank.name}>
-                      {bank.name}
-                    </SelectItem>
-                  ))}
+                  {Array.isArray(banks) && banks.length > 0 ? (
+                    banks.map((bank) => (
+                      <SelectItem key={bank.code} value={bank.name}>
+                        {bank.name}
+                      </SelectItem>
+                    ))
+                  ) : (
+                    <SelectItem value="loading">Loading banks...</SelectItem>
+                  )}
                 </SelectContent>
               </Select>
             </div>

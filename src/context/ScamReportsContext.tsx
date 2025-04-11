@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
-import API_CONFIG from "../config/api-config";
 import { Bank } from "../types";
+import API_CONFIG from "../config/api-config";
 
 type ScamReport = {
   id: string;
