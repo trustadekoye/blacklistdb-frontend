@@ -149,9 +149,11 @@ const FAQSection: React.FC = () => {
         <p className="text-gray-600 mb-4">
           Didn't find the answer you were looking for?
         </p>
-        <button className="bg-[#812018] text-white px-8 py-3 rounded-lg hover:bg-red-700 transition-colors">
-          Contact Us
-        </button>
+        <a href="/contactus">
+          <button className="bg-[#812018] text-white px-8 py-3 rounded-lg hover:bg-red-700 transition-colors">
+            Contact Us
+          </button>
+        </a>
       </motion.div>
     </section>
   );
