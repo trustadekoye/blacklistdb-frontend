@@ -6,6 +6,8 @@ import AboutUsPage from "./pages/aboutUs";
 import ContactUsPage from "./pages/contactUs";
 import DonatePage from "./pages/donate";
 import ScammerListPage from "./components/ScammersList";
+import BlogPage from "./pages/blog";
+import BlogPostDetail from "./components/BlogPostDetail";
 
 const App: React.FC = () => {
   return (
@@ -19,6 +21,8 @@ const App: React.FC = () => {
           <Route path="contactus" element={<ContactUsPage />} />
           <Route path="donate" element={<DonatePage />} />
           <Route path="scammerslist" element={<ScammerListPage />} />
+          <Route path="blog" element={<BlogPage />} />
+          <Route path="blog/:slug" element={<BlogPostDetail />} />
         </Route>
       </Routes>
     </Router>

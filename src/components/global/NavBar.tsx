@@ -20,6 +20,7 @@ const Navbar: React.FC = () => {
     { label: "About Us", href: "/aboutus" },
     { label: "Contact us", href: "/contactus" },
     { label: "Donate", href: "/donate" },
+    { label: "Blog", href: "/blog" },
   ];
 
   useEffect(() => {
