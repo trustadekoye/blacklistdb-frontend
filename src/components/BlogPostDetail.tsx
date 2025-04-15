@@ -15,6 +15,9 @@ import {
 import { client } from "../lib/sanity";
 import { PortableText } from "@portabletext/react";
 import { formatDate } from "../utils/formatDate";
+import TwitterEmbed from "./TwitterEmbed";
+import { isTweetUrl } from "../utils/tweetHelpers";
+import TwitterFollowCard from "./TwitterFollowCard";
 
 // Define types for Sanity content
 type Post = {
@@ -64,6 +67,10 @@ const portableTextComponents = {
         </div>
       );
     },
+    // Twitter embeds
+    twitterEmbed: ({ value }: any) => {
+      return <TwitterEmbed tweetUrl={value.url} />;
+    },
   },
   block: {
     h2: ({ children }: any) => (
@@ -75,9 +82,27 @@ const portableTextComponents = {
     h4: ({ children }: any) => (
       <h4 className="text-xl font-bold mt-6 mb-3">{children}</h4>
     ),
-    normal: ({ children }: any) => (
-      <p className="text-gray-700 mb-6 leading-relaxed">{children}</p>
-    ),
+    normal: ({ children }: any) => {
+      // Check if this block might contain a Twitter link
+      if (
+        children &&
+        children.length === 1 &&
+        typeof children[0] === "object" &&
+        children[0].props?.value?.includes &&
+        (children[0].props.value.includes("twitter.com/") ||
+          children[0].props.value.includes("x.com/")) &&
+        children[0].props.value.includes("status/")
+      ) {
+        return <TwitterEmbed tweetUrl={children[0].props.value} />;
+      }
+
+      // For normal text blocks, use a paragraph
+      return (
+        <p className="text-gray-700 font-regular mb-6 leading-relaxed">
+          {children}
+        </p>
+      );
+    },
     blockquote: ({ children }: any) => (
       <blockquote className="border-l-4 border-[#812018] pl-4 italic my-6 text-gray-700">
         {children}
@@ -86,12 +111,12 @@ const portableTextComponents = {
   },
   list: {
     bullet: ({ children }: any) => (
-      <ul className="list-disc pl-6 mb-6 space-y-2 text-gray-700">
+      <ul className="list-disc pl-6 mb-6 space-y-2 text-gray-700 font-regular">
         {children}
       </ul>
     ),
     number: ({ children }: any) => (
-      <ol className="list-decimal pl-6 mb-6 space-y-2 text-gray-700">
+      <ol className="list-decimal pl-6 mb-6 space-y-2 text-gray-700 font-regular">
         {children}
       </ol>
     ),
@@ -101,6 +126,13 @@ const portableTextComponents = {
       const rel = !value.href.startsWith("/")
         ? "noreferrer noopener"
         : undefined;
+
+      // If this is a Twitter status URL, render it as an embed
+      if (isTweetUrl(value.href)) {
+        return <TwitterEmbed tweetUrl={value.href} />;
+      }
+
+      // Otherwise, render as a normal link
       return (
         <a
           href={value.href}
@@ -185,7 +217,7 @@ const BlogPostDetail: React.FC = () => {
 
   const shareOnTwitter = () => {
     window.open(
-      `https://twitter.com/intent/tweet?url=${encodeURIComponent(
+      `https://x.com/intent/tweet?url=${encodeURIComponent(
         window.location.href
       )}&text=${encodeURIComponent(post?.title || "")}`,
       "_blank"
@@ -419,48 +451,12 @@ const BlogPostDetail: React.FC = () => {
           {/* Sidebar */}
           <div className="lg:col-span-4">
             <div className="sticky top-6">
-              {/* Table of Contents */}
-              <div className="mb-8 p-6 bg-gray-50 rounded-xl">
-                <h3 className="text-lg font-bold mb-4">Table of Contents</h3>
-                <nav className="space-y-2">
-                  {/* This would be dynamically generated from the article content */}
-                  <a
-                    href="#section1"
-                    className="block text-[#812018] hover:underline"
-                  >
-                    Introduction
-                  </a>
-                  <a
-                    href="#section2"
-                    className="block text-[#812018] hover:underline"
-                  >
-                    How to identify scams
-                  </a>
-                  <a
-                    href="#section3"
-                    className="block text-[#812018] hover:underline"
-                  >
-                    Warning signs to watch for
-                  </a>
-                  <a
-                    href="#section4"
-                    className="block text-[#812018] hover:underline"
-                  >
-                    Steps to take if targeted
-                  </a>
-                  <a
-                    href="#section5"
-                    className="block text-[#812018] hover:underline"
-                  >
-                    Conclusion
-                  </a>
-                </nav>
-              </div>
+              <TwitterFollowCard />
 
               {/* Newsletter Sign-up */}
               <div className="p-6 bg-[#812018] text-white rounded-xl">
                 <h3 className="text-xl font-bold mb-3">Stay Protected</h3>
-                <p className="mb-4">
+                <p className="mb-4 font-regular">
                   Subscribe to receive the latest scam alerts and safety tips
                   directly to your inbox.
                 </p>
@@ -468,7 +464,7 @@ const BlogPostDetail: React.FC = () => {
                   <input
                     type="email"
                     placeholder="Your email address"
-                    className="w-full px-4 py-3 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-white"
+                    className="border w-full px-4 py-3 rounded-lg text-white border-white font-regular"
                   />
                   <button className="w-full bg-white text-[#812018] font-medium px-4 py-3 rounded-lg hover:bg-gray-100 transition-colors">
                     Subscribe Now

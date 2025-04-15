@@ -49,6 +49,12 @@ const BlogCard: React.FC<BlogCardProps> = ({
     },
   };
 
+  // If excerpt is too long, truncate it (as a fallback for CSS truncation)
+  const truncatedExcerpt =
+    excerpt && excerpt.length > 150
+      ? excerpt.substring(0, 150) + "..."
+      : excerpt;
+
   // Determine base URL - assuming the base path is /blog unless compact mode is used
   const baseUrl = "/blog/";
 
@@ -103,7 +109,7 @@ const BlogCard: React.FC<BlogCardProps> = ({
               compact ? "line-clamp-3" : "text-sm"
             } mb-4 font-regular`}
           >
-            {excerpt}
+            {truncatedExcerpt}
           </p>
         )}
 
