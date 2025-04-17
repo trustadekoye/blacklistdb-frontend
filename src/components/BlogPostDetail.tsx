@@ -12,7 +12,7 @@ import {
   Bookmark,
   ThumbsUp,
 } from "lucide-react";
-import { client } from "../lib/sanity";
+import { client, urlFor } from "../lib/sanity";
 import { PortableText } from "@portabletext/react";
 import { formatDate } from "../utils/formatDate";
 import TwitterEmbed from "./TwitterEmbed";
@@ -52,10 +52,17 @@ type Post = {
 const portableTextComponents = {
   types: {
     image: ({ value }: any) => {
+      if (!value?.asset) {
+        return (
+          <div className="my-8 p-4 bg-gray-100 rounded-lg text-gray-500">
+            Image not available
+          </div>
+        );
+      }
       return (
         <div className="my-8 rounded-lg overflow-hidden">
           <img
-            src={value.asset.url}
+            src={urlFor(value.asset).width(800).url()}
             alt={value.alt || "Blog image"}
             className="w-full h-auto"
           />
@@ -195,6 +202,7 @@ const BlogPostDetail: React.FC = () => {
         );
 
         setPost(data);
+        console.log(data);
       } catch (error) {
         console.error("Error fetching post:", error);
       } finally {
