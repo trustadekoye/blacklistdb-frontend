@@ -18,6 +18,7 @@ import { formatDate } from "../utils/formatDate";
 import TwitterEmbed from "./TwitterEmbed";
 import { isTweetUrl } from "../utils/tweetHelpers";
 import TwitterFollowCard from "./TwitterFollowCard";
+import { SEOMeta } from "../utils/SEOMeta";
 
 // Define types for Sanity content
 type Post = {
@@ -165,6 +166,10 @@ const BlogPostDetail: React.FC = () => {
   const [liked, setLiked] = useState(false);
   const [bookmarked, setBookmarked] = useState(false);
 
+  // Define base URL for canonical links and sharing
+  const baseUrl = window.location.origin;
+  const currentUrl = `${baseUrl}/blog/${slug}`;
+
   useEffect(() => {
     const fetchPost = async () => {
       if (!slug) return;
@@ -299,6 +304,21 @@ const BlogPostDetail: React.FC = () => {
 
   return (
     <div className="bg-white min-h-screen">
+      {/* SEO Meta Tags */}
+      {post && (
+        <SEOMeta
+          title={post.title}
+          description={post.excerpt || `${post.title} - TheBlacklistDB`}
+          imageUrl={post.mainImage?.asset?.url}
+          canonicalUrl={currentUrl}
+          type="article"
+          publishedAt={post.publishedAt}
+          authorName={post.author?.name}
+          tags={post.categories?.map((cat) => cat.title) || []}
+          twitterHandle="@TheBlacklistDB"
+          siteName="TheBlacklist Database"
+        />
+      )}
       {/* Back button and breadcrumbs */}
       <div className="bg-gray-50 border-b border-gray-200">
         <div className="container mx-auto px-4 py-4 mt-6">
