@@ -53,7 +53,7 @@ export const SEOMeta: React.FC<SEOMetaProps> = ({
       if (publishedAt)
         updateMetaTag("article:published_time", publishedAt, true);
       if (authorName) updateMetaTag("article:author", authorName, true);
-      tags.forEach((tag, index) => {
+      tags.forEach((tag) => {
         const element = document.createElement("meta");
         element.setAttribute("property", "article:tag");
         element.setAttribute("content", tag);
